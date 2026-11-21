@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mecánico Libre</title>
+  <style>
+    body { font-family: sans-serif; background: #121212; color: #fff; margin: 0; padding: 20px; }
+    h1 { color: #ff9800; font-size: 24px; }
+    input, button { width: 100%; padding: 12px; margin-top: 10px; border-radius: 8px; border: none; font-size: 16px; box-sizing: border-box; }
+    input { background: #222; color: #fff; border: 1px solid #444; }
+    button { background: #ff9800; color: #000; font-weight: bold; cursor: pointer; }
+    .card { background: #1e1e1e; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #ff9800; }
+  </style>
+</head>
+<body>
+  <h1>🔧 Mecánico Libre</h1>
+  <p>Ingresá un código OBD-II (ej: P0300, P0171) o un síntoma:</p>
+  <input type="text" id="busqueda" placeholder="Ej: P0300 o no arranca...">
+  <button onclick="buscar()">Diagnosticar</button>
+  <div id="resultado"></div>
+
+  <script>
+    const baseDatos = {
+      "P0300": "Fallo de encendido aleatorio en cilindros. Revisar bujías, bobinas, cables e inyectores.",
+      "P0171": "Mezcla demasiado pobre (Banco 1). Revisar fugas de vacío, sensor MAF o presión de combustible.",
+      "P0420": "Eficiencia del catalizador por debajo del umbral. Revisar sondas lambda y estado del catalizador.",
+      "NO ARRANCA": "1. Revisar voltaje de batería (mínimo 12.4V). 2. Verificar si gira el burro de arranque. 3. Comprobar chispa y llegada de combustible."
+    };
+    function buscar() {
+      const q = document.getElementById("busqueda").value.trim().toUpperCase();
+      const res = document.getElementById("resultado");
+      const info = baseDatos[q] || "No encontrado en la base local. Probá con P0300, P0171, P0420 o 'no arranca'.";
+      res.innerHTML = `<div class="card"><strong>Resultado para ${q || 'consulta'}:</strong><p>${info}</p></div>`;
+    }
+  </script>
+</body>
+</html>
